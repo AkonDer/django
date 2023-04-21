@@ -1,0 +1,22 @@
+{% load static %} <!-- загрузка статических файлов из папки "static" проекта -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- определение заголовка страницы, который может быть переопределен в дочерних шаблонах -->
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <!-- подключение CSS-файла "blog.css" из папки "static" -->
+</head>
+<body>
+<div id="content">
+    {% block content %}
+    <!-- определение основного контента страницы, который может быть переопределен в дочерних шаблонах -->
+    {% endblock %}
+</div>
+<div id="sidebar">
+    <h2>My blog</h2> <!-- заголовок сайдбара -->
+    <p>This is my blog.</p> <!-- текст сайдбара -->
+</div>
+</body>
+</html>
