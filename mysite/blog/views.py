@@ -1,6 +1,7 @@
 from django.shortcuts import render, \
     get_object_or_404  # импорт функций render и get_object_or_404 из модуля django.shortcuts
 from .models import Post  # импорт модели Post из текущего модуля
+from django.core.paginator import Paginator
 
 
 # Определение функции post_detail с пятью аргументами: request, year, month, day, и post.
@@ -20,15 +21,11 @@ def post_detail(request, year, month, day, post):
                   {'post': post})
 
 
+# Обработчик GET-запросов для отображения списка блог-постов.
 def post_list(request):
-    """
-    Функция отображения списка всех блог-постов
-
-    Аргументы:
-    request -- объект запроса
-
-    Возвращает:
-    Отображение со списком всех блог-постов
-    """
-    posts = Post.published.all()  # получение всех объектов опубликованных блог-постов
-    return render(request, 'blog/post/list.html', {'posts': posts})  # возврат отображения со списком всех блог-постов
+    posts_list = Post.published.all()  # получение всех объектов опубликованных блог-постов
+    paginator = Paginator(posts_list, 3)  # создание паджинатора с 3 блоками постов
+    page_number = request.GET.get('page', 1)  # получение номера страницы из GET-запроса или установка значения по умолчанию равным 1
+    posts = paginator.get_page(page_number)  # получение странницы по номеру странницы из паджинатора
+    return render(request, 'blog/post/list.html',
+                  {'posts': posts})  # возврат отображения со списком всех блог-постов

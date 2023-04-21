@@ -1,0 +1,20 @@
+<!-- Блок для пагинации (разбиение на страницы) -->
+<div class="pagination">
+    <!-- Блок для навигационных ссылок -->
+    <span class="step-links">
+    <!-- Если существует предыдущая страница, отображаем ссылку "Previous" -->
+    {% if page.has_previous %}
+      <a href="?page={{ page.previous_page_number }}">Предыдущая</a>
+    {% endif %}
+
+        <!-- Отображаем текущий номер страницы и общее количество страниц -->
+    <span class="current">
+      Страница {{ page.number }} из {{ page.paginator.num_pages }}.
+    </span>
+
+        <!-- Если существует следующая страница, отображаем ссылку "Next" -->
+    {% if page.has_next %}
+      <a href="?page={{ page.next_page_number }}">Следующая</a>
+    {% endif %}
+  </span>
+</div>
